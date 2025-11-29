@@ -1,0 +1,30 @@
+/* Bright, colorful dashboard styles */
+.dashboard-hero {
+  background: linear-gradient(135deg, rgba(63,94,251,0.12), rgba(252,70,107,0.05));
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.dashboard-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+.stat-card .card-body {
+  min-height: 88px;
+}
+
+.activities-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.policy-summary th, .policy-summary td { vertical-align: middle; }
+
+@media (max-width: 576px) {
+  .dashboard-hero { padding: 16px; }
+}

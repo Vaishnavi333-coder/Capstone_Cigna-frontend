@@ -1,0 +1,61 @@
+/* Shared styles for wavy navbar and footer */
+.app-root { display: flex; flex-direction: column; min-height: 100vh; }
+.straight-header {
+  --header-height: 96px; /* default header height for layout spacing */
+  background: linear-gradient(90deg, #3f5efb 0%, #fb6f92 60%);
+  color: #fff;
+  padding: 12px 0; /* keep padding internal, height defined by var */
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.straight-header .logo-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.12);
+  font-weight: 700;
+  font-size: 18px;
+}
+.logo-wrapper { display: inline-flex; align-items: center; justify-content: center; padding: 4px; background: rgba(255,255,255,0.12); border-radius: 8px; }
+.site-logo { height: 72px; width: auto; display: block; object-fit: contain; background: transparent; padding: 4px 6px; border-radius: 6px; box-shadow: 0 4px 14px rgba(0,0,0,0.18); border: 1px solid rgba(255,255,255,0.06); }
+.logo-fallback { width: 64px; height: 64px; font-size: 20px; }
+
+.straight-header .brand-title { font-weight: 800; font-size: 20px; text-shadow: 0 1px 2px rgba(0,0,0,0.2); color: #fff; }
+.straight-header .brand-sub { font-size: 12px; opacity: 0.95; color: rgba(255,255,255,0.92); }
+.straight-header .brand { display: flex; align-items: center; gap: 10px; }
+.straight-header .nav-links .nav-link { color: rgba(255,255,255,0.92); margin: 0 6px; }
+.straight-header .nav-links .nav-link:hover { text-decoration: underline; color: #fff; }
+.straight-header .nav-links .nav-link.active { text-decoration: underline; font-weight: 700; }
+
+/* removed wave-specific styles */
+
+.wavy-footer {
+  position: relative;
+  padding-top: 8px; /* reduce top padding - make footer overall smaller */
+  padding-bottom: 8px; /* reduce bottom padding */
+  background: linear-gradient(90deg, #3f5efb 0%, #fb6f92 60%);
+}
+.wavy-footer .wavy-top { position: absolute; left: 0; top: -1px; width: 100%; height: 55px; }
+.wavy-footer .footer-content { padding: 12px 0; /* smaller content padding to compress height */ }
+.wavy-footer .text-white-70 { color: rgba(255,255,255,0.75); }
+.wavy-footer .text-white-50 { color: rgba(255,255,255,0.5); }
+.wavy-footer .footer-copyright { padding: 6px 0; font-size: 12px; color: rgba(255,255,255,0.7); }
+.wavy-footer { margin-top: auto; }
+
+/* Small-screen adjustments */
+@media (max-width: 576px) {
+  .straight-header { --header-height: 76px; padding: 8px 0; }
+  .straight-header .nav-links { gap: 8px; }
+}
+
+/* content wrapper that compensates for sticky header */
+.app-content { padding-top: var(--header-height); flex: 1; }

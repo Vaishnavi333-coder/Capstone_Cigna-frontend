@@ -1,0 +1,5 @@
+.public-landing .hero { background: linear-gradient(90deg, rgba(63,94,251,0.06), rgba(251,111,146,0.03)); border-radius: 12px; }
+.public-landing .hero-title { font-weight: 800; color: #2b2b2b; }
+.public-landing .features { margin-top: 18px; }
+.public-landing .card { border: none; }
+.public-landing { margin-top: 0; }
