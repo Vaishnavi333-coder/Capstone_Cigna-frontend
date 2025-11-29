@@ -14,6 +14,7 @@ export default function RegisterPage() {
     try {
       const res = await api.post('/auth/register', { email, name, password });
       localStorage.setItem('jwt', (res.data as any).access_token);
+      if (res.data.user && res.data.user.role) localStorage.setItem('role', res.data.user.role);
       // notify app that a login has occurred
       window.dispatchEvent(new Event('authChange'));
       navigate('/');

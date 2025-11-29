@@ -1,0 +1,36 @@
+/* Modal + backdrop blur */
+.custom-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(4px);
+}
+
+.custom-modal-content {
+  position: relative;
+  z-index: 3010;
+  max-width: 720px;
+  width: 100%;
+  padding: 0 16px;
+}
+
+.custom-modal-body {
+  background: #fff;
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.24);
+}
+
+@media (max-width: 576px) {
+  .custom-modal-content { padding: 0 12px; }
+  .custom-modal-body { padding: 12px; }
+}

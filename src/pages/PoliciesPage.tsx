@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import api from '../api';
 import { Link } from 'react-router-dom';
+import PolicyAds from '../components/PolicyAds';
+import PolicyForm from './PolicyForm';
+import Modal from '../components/Modal';
+import './PoliciesPage.css';
 
 function PolicyRow({ p }: any) {
   return (
@@ -18,8 +22,9 @@ function PolicyRow({ p }: any) {
 export default function PoliciesPage() {
   const [policies, setPolicies] = useState<any[]>([]);
   const [error, setError] = useState('');
+  const [prefillPlan, setPrefillPlan] = useState<any | null>(null);
 
-  const fetch = async () => {
+  const fetchPolicies = async () => {
     try {
       const r = await api.get('/policies');
       setPolicies(r.data || []);
@@ -29,17 +34,34 @@ export default function PoliciesPage() {
   };
 
   useEffect(() => {
-    fetch();
+    fetchPolicies();
   }, []);
+
+  const [showForm, setShowForm] = useState(false);
+
+  const onAddNewClick = () => {
+    setShowForm(true);
+  };
+
+  const onBuyNow = (plan: any) => {
+    setPrefillPlan(plan);
+    setShowForm(true);
+  };
 
   return (
     <div>
+      <PolicyAds showAddNew={false} onAddNewClick={onAddNewClick} onBuyNow={onBuyNow} />
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h3>Your Policies</h3>
-        <Link to="/policies/new" className="btn btn-primary">Add Policy</Link>
       </div>
 
       {error && <div className="alert alert-danger">{error}</div>}
+
+      {showForm && (
+        <Modal onClose={() => setShowForm(false)}>
+          <PolicyForm initialData={prefillPlan || undefined} onSuccess={async () => { await fetchPolicies(); setShowForm(false); setPrefillPlan(null); }} onClose={() => { setShowForm(false); setPrefillPlan(null); }} />
+        </Modal>
+      )}
 
       <table className="table">
         <thead>

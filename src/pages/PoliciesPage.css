@@ -1,0 +1,4 @@
+/* Optional styles to keep spacing neat for policies page */
+.policy-ads { margin-bottom: 24px; }
+.policy-ads .ads-hero h2 { color: #082032; font-weight: 800; }
+.policy-ads .ads-hero p { color: rgba(8, 32, 50, 0.75); }

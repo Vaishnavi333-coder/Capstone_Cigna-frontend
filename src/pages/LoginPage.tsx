@@ -7,6 +7,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const [isAdminMode, setIsAdminMode] = useState(false);
 
   const login = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -14,6 +15,8 @@ export default function LoginPage() {
       const res = await api.post('/auth/login', { email, password });
       if ((res.data as any).access_token) {
         localStorage.setItem('jwt', (res.data as any).access_token);
+        // store role (returned by server) for the UI
+        if (res.data.user && res.data.user.role) localStorage.setItem('role', res.data.user.role);
         // dispatch event for auth change so navbar and app can react
         window.dispatchEvent(new Event('authChange'));
         navigate('/');
@@ -25,6 +28,15 @@ export default function LoginPage() {
     } catch (err: any) {
       setError(err?.response?.data?.message || err.message);
     }
+  };
+
+  const loginAsAdmin = async () => {
+    // Enter admin-mode so the admin can type their credentials.
+    setIsAdminMode(true);
+    setError('');
+    setEmail('');
+    setPassword('');
+    // focus is handled in the form (the user can type credentials manually)
   };
 
   return (
@@ -41,6 +53,12 @@ export default function LoginPage() {
         </div>
         <div className="mb-3 text-danger">{error}</div>
         <button className="btn btn-primary" type="submit">Login</button>
+        {!isAdminMode && (
+          <button type="button" className="btn btn-secondary ms-2" onClick={loginAsAdmin}>Login as Admin</button>
+        )}
+        {isAdminMode && (
+          <div className="ms-3 text-muted" style={{ display: 'inline-block' }}>Admin mode: please enter your credentials</div>
+        )}
       </form>
     </div>
   );

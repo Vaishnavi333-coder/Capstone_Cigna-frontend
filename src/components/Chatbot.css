@@ -32,6 +32,8 @@
   background: linear-gradient(90deg, #3f5efb 0%, #fb6f92 60%);
   color: #fff;
 }
+.chatbot-options { padding: 8px 12px; background: linear-gradient(90deg, rgba(63,94,251,0.04), rgba(14,201,140,0.02)); display:flex; flex-wrap:wrap; gap:8px; }
+.chatbot-options .btn { font-size: 12px; }
 .chatbot-messages {
   height: 220px;
   overflow-y: auto;

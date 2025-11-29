@@ -8,11 +8,13 @@ import { FaHome, FaUser, FaFileAlt, FaFileInvoiceDollar } from 'react-icons/fa';
 export default function WavyNavbar() {
   const [logoOk, setLogoOk] = useState(true);
   const [isAuth, setIsAuth] = useState(!!localStorage.getItem('jwt'));
+  const [isAdmin, setIsAdmin] = useState(localStorage.getItem('role') === 'admin');
   const navigate = useNavigate();
 
   useEffect(() => {
     function onAuthChange() {
       setIsAuth(!!localStorage.getItem('jwt'));
+      setIsAdmin(localStorage.getItem('role') === 'admin');
     }
     window.addEventListener('authChange', onAuthChange);
     // also listen to storage events (for cross-tab logout/login)
@@ -57,6 +59,9 @@ export default function WavyNavbar() {
               <NavLink to="/claims" className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`}><FaFileInvoiceDollar style={{ marginRight: 6 }} />Claims</NavLink>
             </>
           )}
+          {isAdmin && (
+            <NavLink to="/admin" className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`}>Admin</NavLink>
+          )}
           {!isAuth && (
             <>
               <NavLink to="/login" className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`}><FaUser style={{ marginRight: 6 }} />Login</NavLink>
@@ -68,6 +73,7 @@ export default function WavyNavbar() {
               className="btn btn-outline-light btn-sm ms-2"
               onClick={() => {
                 localStorage.removeItem('jwt');
+                localStorage.removeItem('role');
                 window.dispatchEvent(new Event('authChange'));
                 navigate('/');
               }}

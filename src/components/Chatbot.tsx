@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FaComments } from 'react-icons/fa';
 import './Chatbot.css';
+import api from '../api';
 
 const canned: { [k: string]: string } = {
   'hello': 'Hello there! How can I help you with your policies or claims today?',
@@ -9,6 +10,13 @@ const canned: { [k: string]: string } = {
   'help': 'Ask me about policies, claims, or how to contact your broker. I can also point you to the documentation.'
 };
 
+const quickReplies: { key: string; label: string }[] = [
+  { key: 'policy', label: 'Policies' },
+  { key: 'claim', label: 'Claims' },
+  { key: 'forgot', label: 'Forgot Password' },
+  { key: 'buy', label: 'Where is Buy Now?' },
+];
+
 export default function Chatbot() {
   const [open, setOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -16,6 +24,7 @@ export default function Chatbot() {
   const messagesRef = useRef<HTMLDivElement | null>(null);
   const [messages, setMessages] = useState<Array<{ from: string; text: string }>>([]);
   const [input, setInput] = useState('');
+  const [userName, setUserName] = useState('');
 
   const send = () => {
     if (!input.trim()) return;
@@ -28,6 +37,21 @@ export default function Chatbot() {
     setInput('');
   }
 
+  const handleQuick = (key: string) => {
+    const label = quickReplies.find(q => q.key === key)?.label || key;
+    setMessages((s) => [...s, { from: 'user', text: label }]);
+    if (key === 'forgot') {
+      setTimeout(() => setMessages((s) => [...s, { from: 'bot', text: 'Please register and login again and try to save your credentials in the Google browser.' }]), 240);
+      return;
+    }
+    if (key === 'buy') {
+      setTimeout(() => setMessages((s) => [...s, { from: 'bot', text: 'Please hover over the policy you need to buy. Buy Now option will be present over there that will redirect you to the form.' }]), 240);
+      return;
+    }
+    const reply = canned[key] || 'Sorry, I do not have an answer for that yet.';
+    setTimeout(() => setMessages((s) => [...s, { from: 'bot', text: reply }]), 240);
+  }
+
   useEffect(() => {
     function onResize() {
       setIsMobile(window.innerWidth <= 576);
@@ -37,10 +61,33 @@ export default function Chatbot() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
   useEffect(() => {
+    async function fetchUserData() {
+      const token = localStorage.getItem('jwt');
+      if (!token) return;
+      try {
+        const res = await api.get('/auth/me');
+        const user = (res.data as any).user;
+        if (user) {
+          if (user.name) setUserName(user.name);
+          else if (user.email) setUserName((user.email as string).split('@')[0]);
+        }
+      } catch (err) {
+        // ignore
+      }
+    }
+    fetchUserData();
+  }, []);
+  useEffect(() => {
     if (open && inputRef.current) {
       inputRef.current.focus();
     }
   }, [open]);
+  useEffect(() => {
+    if (open && messages.length === 0) {
+      const who = userName || 'there';
+      setMessages((s) => [...s, { from: 'bot', text: `Hi ${who}! 👋 How can I help you today?` }]);
+    }
+  }, [open, userName]);
 
   useEffect(() => {
     if (messagesRef.current) {
@@ -64,6 +111,11 @@ export default function Chatbot() {
             <div>
               <button className="btn-close btn-close-white" aria-label="Close" onClick={() => setOpen(false)} />
             </div>
+          </div>
+          <div className="p-2 chatbot-options">
+            {quickReplies.map((q) => (
+              <button key={q.key} className="btn btn-sm btn-outline-secondary me-1 mb-1" onClick={() => handleQuick(q.key)}>{q.label}</button>
+            ))}
           </div>
           <div className="chatbot-messages" ref={messagesRef}>
             <div style={{ height: '100%', overflow: 'auto' }}>

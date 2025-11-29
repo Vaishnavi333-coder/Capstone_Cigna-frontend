@@ -1,0 +1,80 @@
+export default [
+  {
+    id: 'h1',
+    insurer: 'Cigna',
+    planName: 'Health Protect Plus',
+    policyType: 'Health',
+    premium: 4999,
+    durationMonths: 12,
+    coverage: 500000,
+    insurerLogo: '/cigna.svg',
+    gradient: 'gradient-health',
+    description: 'Comprehensive health coverage for hospitalisation and critical illness',
+    features: ['Hospitalization cover', 'Pre & post hospitalization', 'Cashless network']
+  },
+  {
+    id: 'm1',
+    insurer: 'Bajaj',
+    planName: 'Motor Shield Classic',
+    policyType: 'Motor',
+    premium: 3499,
+    durationMonths: 12,
+    coverage: 300000,
+    insurerLogo: '/bajaj.svg',
+    gradient: 'gradient-motor',
+    description: 'Third-party and comprehensive motor cover for peace of mind',
+    features: ['Third-party cover', 'Own damage cover', '24/7 emergency assistance']
+  },
+  {
+    id: 'home1',
+    insurer: 'HDFC',
+    planName: 'Home Guardian',
+    policyType: 'Home',
+    premium: 2499,
+    durationMonths: 12,
+    coverage: 1000000,
+    insurerLogo: '/hdfc.svg',
+    gradient: 'gradient-home',
+    description: 'Protection against theft, fire, and natural disasters',
+    features: ['Fire and theft', 'Natural calamity cover', 'Property liability']
+  },
+  {
+    id: 'travel1',
+    insurer: 'AXA',
+    planName: 'Travel Explore',
+    policyType: 'Travel',
+    premium: 1999,
+    durationMonths: 6,
+    coverage: 250000,
+    insurerLogo: '/axa.svg',
+    gradient: 'gradient-travel',
+    description: 'Travel insurance covering medical emergencies and baggage',
+    features: ['Medical emergency', 'Trip delay coverage', 'Baggage loss']
+  },
+  {
+    id: 'life1',
+    insurer: 'ICICI',
+    planName: 'Life Secure Gold',
+    policyType: 'Life',
+    premium: 7999,
+    durationMonths: 12,
+    coverage: 5000000,
+    insurerLogo: '/icici.svg',
+    gradient: 'gradient-life',
+    description: 'Life cover to secure your family’s future and liabilities',
+    features: ['Life cover', 'Tax savings', 'Lump-sum benefit']
+  },
+  {
+    id: 'acc1',
+    insurer: 'Reliance',
+    planName: 'Accident Protector',
+    policyType: 'Accident',
+    premium: 1099,
+    durationMonths: 12,
+    coverage: 300000,
+    insurerLogo: '/reliance.svg',
+    gradient: 'gradient-accident',
+    description: 'Accident protection with immediate support and payout',
+    features: ['Accidental death benefit', 'Permanent disability cover', 'Hospitalization cover']
+  }
+];

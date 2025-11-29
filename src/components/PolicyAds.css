@@ -1,0 +1,96 @@
+/* Policy Ads styles: hero + cards */
+.policy-ads .ads-hero {
+  background: linear-gradient(90deg, rgba(63,94,251,0.08), rgba(14,201,140,0.05));
+  border: 1px solid rgba(63,94,251,0.06);
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.policy-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.2), rgba(255,255,255,0.06));
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 18px;
+  box-shadow: 0 12px 24px rgba(16, 24, 40, 0.08);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  color: #fff;
+  transform-style: preserve-3d;
+  position: relative;
+  overflow: hidden;
+  --nx: 0; --ny: 0;
+  will-change: transform;
+}
+
+.policy-card:hover {
+  transform: translateY(-6px) rotate(-0.1deg) scale(1.02) perspective(1000px) rotateY(calc(var(--nx) * 12deg)) rotateX(calc(var(--ny) * -12deg));
+  box-shadow: 0 18px 36px rgba(16, 24, 40, 0.14);
+}
+
+.policy-card .policy-card-top { display: flex; align-items: center; }
+.policy-card .policy-card-body, .policy-card .policy-card-footer { position: relative; z-index: 2; }
+/* Logo wrap & size increased for better visibility */
+.logo-wrap { width: 72px; height: 72px; display:flex; align-items:center; justify-content:center; border-radius: 12px; background: rgba(255,255,255,0.08); }
+.insurer-logo { width: 64px; height: 64px; object-fit: contain; }
+.insurer-fallback{ background: rgba(255,255,255,0.12); width:64px; height:64px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-weight:700; color: #fff; font-size:18px; }
+.icon-wrap { font-size: 26px; opacity: 0.95; }
+.policy-name { font-size: 16px; font-weight: 700; }
+.policy-type { font-size: 12px; opacity: 0.9; }
+.policy-insurer { font-size: 12px; opacity: 0.85; color: rgba(255,255,255,0.9); }
+.policy-card .label { color: rgba(255,255,255,0.9); font-size: 11px; }
+.policy-card .value { font-weight: 700; color: #fff; }
+.policy-card .policy-card-footer { border-top: 1px solid rgba(255,255,255,0.04); padding-top: 12px; }
+.buy-now { background: rgba(255,255,255,0.95); color: #1b1b1b; }
+
+.policy-details {
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+  background: rgba(255,255,255,0.96);
+  color: #111;
+  padding: 20px;
+  border-radius: 14px;
+  transform: translateY(6px);
+  opacity: 0;
+  transition: transform 180ms ease, opacity 180ms ease;
+  z-index: 3;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.policy-card:hover .policy-details { transform: translateY(0); opacity: 1; }
+.policy-card .card-front { transition: opacity 140ms ease 0s; z-index: 2; }
+.policy-card:hover .card-front { opacity: 0; pointer-events: none; }
+.policy-card .policy-details * { color: inherit; }
+.policy-card .policy-details * { color: #222 !important; }
+.policy-card .policy-details { color: #222; }
+.policy-details .desc { color: #111; font-weight: 600; font-size: 16px; margin-bottom:8px; }
+.policy-details .features { list-style: none; padding-left: 0; margin: 0; color: #333; }
+.policy-details .features li { font-size: 13px; color: #333; margin: 4px 0; }
+.policy-details .features li::before { content: "• "; color: #333; margin-right: 6px; }
+/* ensure Buy Now shows up on white overlay */
+.policy-details .buy-now { background: var(--bs-primary, #0d6efd); color: white; border: none; }
+
+/* Gradients */
+.gradient-health { background: linear-gradient(135deg, #3f5efb 0%, #07c4a7 100%); }
+.gradient-motor { background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%); }
+.gradient-home { background: linear-gradient(135deg, #3fcf8e 0%, #0c9a7b 100%); }
+.gradient-travel { background: linear-gradient(135deg, #a76cf6 0%, #7b61ff 100%); }
+.gradient-life { background: linear-gradient(135deg, #f6c86c 0%, #f1b24a 100%); }
+.gradient-accident { background: linear-gradient(135deg, #f95d5d 0%, #f03b30 100%); }
+
+/* Responsive */
+@media (max-width: 992px) {
+  .cards-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 576px) {
+  .cards-grid { grid-template-columns: repeat(1, 1fr); }
+  .policy-card { padding: 14px; }
+  .ads-hero { flex-direction: column; align-items: flex-start; gap: 8px; }
+  /* reduce logo size for small screens so layout stays balanced */
+  .logo-wrap { width: 48px; height: 48px; }
+  .insurer-logo { width: 40px; height: 40px; }
+  .insurer-fallback { width:40px; height:40px; font-size:14px; }
+}
